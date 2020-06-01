@@ -55,4 +55,10 @@ exports.updateOne = (req, res) => {
 };
 
 exports.deleteOne = (req, res) => {
+  models.Event.findByPk(req.params.id).then(event => {
+    event.destroy();
+    res.redirect(`/`);
+  }).catch((err) => {
+    console.log(err);
+  });
 };

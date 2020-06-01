@@ -23,6 +23,9 @@ app.use(express.static(__dirname + '/static'));
 // BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// MethodOverride
+app.use(methodOverride('_method'));
+
 // Routes
 app.get('/', router.getAll);
 app.get('/events/new', router.addForm);
