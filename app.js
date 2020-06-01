@@ -3,7 +3,9 @@ const methodOverride = require('method-override');
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
-const router = require('./controllers/event');
+// controllers
+const eventRouter = require('./controllers/event');
+const rsvpRouter = require('./controllers/rsvp');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,14 +28,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // MethodOverride
 app.use(methodOverride('_method'));
 
-// Routes
-app.get('/', router.getAll);
-app.get('/events/new', router.addForm);
-app.post('/events', router.create);
-app.get('/events/:id', router.getOne);
-app.get('/events/:id/edit', router.editOne);
-app.put('/events/:id', router.updateOne);
-app.delete('/events/:id', router.deleteOne);
+// Event Routes
+app.get('/', eventRouter.getAll);
+app.get('/events/new', eventRouter.addForm);
+app.post('/events', eventRouter.create);
+app.get('/events/:id', eventRouter.getOne);
+app.get('/events/:id/edit', eventRouter.editOne);
+app.put('/events/:id', eventRouter.updateOne);
+app.delete('/events/:id', eventRouter.deleteOne);
+
+// RVSP Routes
+app.get('/events/:eventId/rsvps/new', rsvpRouter.addForm);
+app.post('/events/:eventId/rsvps', rsvpRouter.create);
+
+
 
 app.listen(port, () => {
   console.log(`App live at http://localhost:${port}`);

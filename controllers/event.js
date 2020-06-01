@@ -20,7 +20,7 @@ exports.create = (req, res) => {
 };
 
 exports.getOne = (req, res) => {
-  models.Event.findByPk(req.params.id).then((event) => {
+  models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp }] }).then(event => {
     // if the event was found, load up single event template
     res.render('events-show', { event: event, title: event.title })
   }).catch((err) => {
