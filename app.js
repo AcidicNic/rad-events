@@ -40,8 +40,7 @@ app.delete('/events/:id', eventRouter.deleteOne);
 // RVSP Routes
 app.get('/events/:eventId/rsvps/new', rsvpRouter.addForm);
 app.post('/events/:eventId/rsvps', rsvpRouter.create);
-
-
+app.delete('/events/:eventId/rsvps/:id', rsvpRouter.delete);
 
 app.listen(port, () => {
   console.log(`App live at http://localhost:${port}`);
