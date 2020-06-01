@@ -1,18 +1,22 @@
-var events = [
-  { title: "Clown Meetup", desc: "A great event that is super fun to look at and good", imgUrl: "https://www.bouncepros.com/wp-content/uploads/eshop-prod-images/Entertainers/Clowns/partyclown.jpg" },
-  { title: "I am your second event", desc: "A great event that is super fun to look at and good", imgUrl: "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA4OC85MTEvb3JpZ2luYWwvZ29sZGVuLXJldHJpZXZlci1wdXBweS5qcGVn" },
-  { title: "I am your third event", desc: "A great event that is super fun to look at and good", imgUrl: "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA4OC85MTEvb3JpZ2luYWwvZ29sZGVuLXJldHJpZXZlci1wdXBweS5qcGVn" }
-];
+const models = require('../db/models');
 
 exports.getAll = (req, res) => {
-  res.render('viewEvents', { events: events, title: 'Explore' });
+  models.Event.findAll({ order: [['createdAt', 'DESC']] }).then(events => {
+    console.log(events);
+    res.render('events-view', {events: events, title: 'Explore'})
+  })
 };
 
 exports.addForm = (req, res) => {
-  res.render('...', { title: '' });
+  res.render('events-new', { title: 'Create' })
 };
 
 exports.create = (req, res) => {
+  models.Event.create(req.body).then(event => {
+    res.redirect('/');
+  }).catch((err) => {
+    console.log(err)
+  });
 };
 
 exports.getOne = (req, res) => {

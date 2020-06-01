@@ -1,31 +1,32 @@
 const express = require('express');
 const hbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
-const homeController = require('./controllers/home');
-const eventController = require('./controllers/event');
+const router = require('./controllers/event');
 
 const app = express();
-const port = process.env.PORT || 420;
+const port = process.env.PORT || 3000;
 
 // handlebars setup
 app.engine('hbs', hbs({
-    extname: '.hbs',
-    layoutDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials',
-    defaultLayout: 'main'
+  extname: '.hbs',
+  layoutDir: __dirname + '/views/layouts',
+  partialsDir: __dirname + '/views/partials',
+  defaultLayout: 'main'
 }));
 app.set('view engine', 'hbs');
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', homeController.home);
-app.get('/events', eventController.getAll);
-app.get('/events/new', eventController.addForm);
-app.post('/events', eventController.create);
-app.get('/events/:id', eventController.getOne);
-app.get('/events/:id/edit', eventController.editOne);
-app.put('/events/:id', eventController.updateOne);
-app.delete('/events/:id', eventController.deleteOne);
+app.get('/', router.getAll);
+app.get('/events/new', router.addForm);
+app.post('/events', router.create);
+app.get('/events/:id', router.getOne);
+app.get('/events/:id/edit', router.editOne);
+app.put('/events/:id', router.updateOne);
+app.delete('/events/:id', router.deleteOne);
 
 app.listen(port, () => {
   console.log(`App live at http://localhost:${port}!`);
