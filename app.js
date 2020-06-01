@@ -15,8 +15,11 @@ app.engine('hbs', hbs({
   defaultLayout: 'main'
 }));
 app.set('view engine', 'hbs');
-app.use(express.static(__dirname + '/public'));
 
+// Static files
+app.use(express.static(__dirname + '/static'));
+
+// BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
@@ -29,5 +32,5 @@ app.put('/events/:id', router.updateOne);
 app.delete('/events/:id', router.deleteOne);
 
 app.listen(port, () => {
-  console.log(`App live at http://localhost:${port}!`);
+  console.log(`App live at http://localhost:${port}`);
 });

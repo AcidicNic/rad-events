@@ -13,18 +13,26 @@ exports.addForm = (req, res) => {
 
 exports.create = (req, res) => {
   models.Event.create(req.body).then(event => {
-    res.redirect('/');
+    // redirect to the new event's page
+    res.redirect(`/events/${event.id}`)
   }).catch((err) => {
     console.log(err)
   });
 };
 
 exports.getOne = (req, res) => {
-  res.render('...', { title: '' });
+  models.Event.findByPk(req.params.id).then((event) => {
+    // if the event was found, load up single event template
+    res.render('event-show', { event: event, title: event.title })
+  }).catch((err) => {
+    // event not found!
+    console.log(err.message);
+    res.redirect('/');
+  })
 };
 
 exports.editOne = (req, res) => {
-  res.render('...', { title: '' });
+  res.render('...', { title: '' })
 };
 
 exports.updateOne = (req, res) => {
