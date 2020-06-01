@@ -1,3 +1,3 @@
 exports.home = (req, res) => {
-  res.render('home.hbs', {title: 'Home'});
+  res.render('home', {title: 'Home'});
 };

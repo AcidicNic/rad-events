@@ -1,5 +1,5 @@
 const express = require('express');
-const exphbs = require('express-handlebars');
+const hbs = require('express-handlebars');
 
 const homeController = require('./controllers/home');
 const eventController = require('./controllers/event');
@@ -8,13 +8,14 @@ const app = express();
 const port = process.env.PORT || 420;
 
 // handlebars setup
-app.engine('.hbs', exphbs({
-    extName: '.hbs',
-    defaultLayout: 'main.hbs',
-    partialsDir: app.get('views') + '/partials',
-    layoutDir: app.get('views') + '/layouts'
+app.engine('hbs', hbs({
+    extname: '.hbs',
+    layoutDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials',
+    defaultLayout: 'main'
 }));
-app.set('view engine', '.hbs');
+app.set('view engine', 'hbs');
+app.use(express.static('public'));
 
 // Routes
 app.get('/', homeController.home);
