@@ -23,7 +23,7 @@ exports.create = (req, res) => {
 exports.getOne = (req, res) => {
   models.Event.findByPk(req.params.id).then((event) => {
     // if the event was found, load up single event template
-    res.render('event-show', { event: event, title: event.title })
+    res.render('events-show', { event: event, title: event.title })
   }).catch((err) => {
     // event not found!
     console.log(err.message);
@@ -32,10 +32,26 @@ exports.getOne = (req, res) => {
 };
 
 exports.editOne = (req, res) => {
-  res.render('...', { title: '' })
+  models.Event.findByPk(req.params.id).then((event) => {
+    res.render('events-edit', { event: event, title: "Edit" });
+  }).catch((err) => {
+    // event not found!
+    console.log(err.message);
+    // res.redirect('/')
+  })
 };
 
 exports.updateOne = (req, res) => {
+  models.Event.findByPk(req.params.id).then(event => {
+    event.update(req.body).then(event => {
+      res.redirect(`/events/${req.params.id}`);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }).catch((err) => {
+    // event not found!
+    console.log(err);
+  });
 };
 
 exports.deleteOne = (req, res) => {
