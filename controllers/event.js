@@ -21,12 +21,12 @@ exports.create = (req, res) => {
 
 exports.getOne = (req, res) => {
   models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp }] }).then(event => {
-    // if the event was found, load up single event template
-    res.render('events-show', { event: event, title: event.title })
+    let createdAt = event.createdAt;
+    createdAt = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+    event.createdAtFormatted = createdAt;
+    res.render('events-show', { event: event, title: event.title });
   }).catch((err) => {
-    // event not found!
     console.log(err.message);
-    res.redirect('/');
   })
 };
 

@@ -1,3 +1,17 @@
+html, body {
+    min-height: 100vh;
+}
+.page-wrapper {
+    min-height: 90vh;
+    display: block;
+}
 #footer {
-    height: 7vh;
+    margin-top: 5vh;
+    height: 10vh;
+}
+#footer > div > a {
+    text-decoration: none;
+}
+.no_ul:hover {
+    text-decoration: none;
 }
