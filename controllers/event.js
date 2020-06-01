@@ -2,9 +2,8 @@ const models = require('../db/models');
 
 exports.getAll = (req, res) => {
   models.Event.findAll({ order: [['createdAt', 'DESC']] }).then(events => {
-    console.log(events);
     res.render('events-view', {events: events, title: 'Explore'})
-  })
+  });
 };
 
 exports.addForm = (req, res) => {
