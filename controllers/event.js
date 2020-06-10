@@ -30,11 +30,9 @@ exports.getOne = (req, res) => {
 
 exports.editOne = (req, res) => {
   models.Event.findByPk(req.params.id, {raw: true}).then((event) => {
+    let rawDate = null;
     if (event.date) {
       rawDate = moment(event.date).add(1, 'days').format('YYYY-MM-DD');
-    }
-    else {
-      rawDate = null;
     }
     res.render('events-edit', { event: event, title: "Edit", rawDate: rawDate });
   }).catch((err) => {
