@@ -27,10 +27,10 @@ app.engine('hbs', hbs({
       return new handlebars.SafeString(content);
     },
     prettyDate: function (date) {
-      return moment(date).add(12, 'hours').format('dddd, MMMM D YYYY');
+      return moment(date).add(1, 'days').format('dddd, MMMM D YYYY');
     },
     simpleDate: function (date) {
-      return moment(date).add(12, 'hours').format('MMMM do YYYY');
+      return moment(date).format('MMMM D YYYY');
     },
   }
 }));

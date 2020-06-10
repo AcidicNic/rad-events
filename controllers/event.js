@@ -16,23 +16,22 @@ exports.create = (req, res) => {
     // redirect to the new event's page
     res.redirect(`/events/${event.id}`)
   }).catch((err) => {
-    console.log(err);
+    console.log(err)
   });
 };
 
 exports.getOne = (req, res) => {
   models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp, raw: true, nest: true}], nest: true}).then(event => {
-    res.render('events-show', { event: event.dataValues, title: event.title });
+    res.render('events-show', { event: event.dataValues, title: event.title});
   }).catch((err) => {
     console.log(err.message);
-    res.redirect(`/`);
   })
 };
 
 exports.editOne = (req, res) => {
   models.Event.findByPk(req.params.id, {raw: true}).then((event) => {
     if (event.date) {
-      rawDate = moment(event.date).format('YYYY-MM-DD');
+      rawDate = moment(event.date).add(1, 'days').format('YYYY-MM-DD');
     }
     else {
       rawDate = null;
@@ -40,8 +39,8 @@ exports.editOne = (req, res) => {
     res.render('events-edit', { event: event, title: "Edit", rawDate: rawDate });
   }).catch((err) => {
     // event not found!
-    console.log(err);
-    res.redirect(`/`);
+    console.log(err.message);
+    // res.redirect('/')
   })
 };
 
