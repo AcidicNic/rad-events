@@ -7,11 +7,11 @@
                 <div class="card-title">
                     <h3>New RSVP</h3>
                     <div class="lead">
-                        Event: {{event.dataValues.title}}
+                        Event: {{event.title}}
                     </div>
                 </div>
                 <div class="card-text">
-                    <form action="/events/{{event.dataValues.id}}/rsvps" method="post">
+                    <form action="/events/{{event.id}}/rsvps" method="post">
                         <div class="form-group">
                             <label for="title">Name</label>
                             <input name="name" class="form-control" placeholder="Jane Doe" />

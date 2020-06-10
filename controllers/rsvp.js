@@ -1,7 +1,7 @@
 const models = require('../db/models');
 
 exports.addForm = (req, res) => {
-    models.Event.findByPk(req.params.eventId).then(event => {
+    models.Event.findByPk(req.params.eventId, {raw: true}).then(event => {
       res.render('rsvps-new', {event: event})
     })
 };

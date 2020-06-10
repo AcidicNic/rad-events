@@ -7,26 +7,30 @@
           <h3>Update Event</h3>
         </div>
         <div class="card-text">
-          <form action="/events/{{event.dataValues.id}}?_method=PUT" id="update" method="post">
+          <form action="/events/{{event.id}}?_method=PUT" id="update" method="post">
             <div class="form-group">
               <label for="title">Title</label>
-                <input name="title" class="form-control" placeholder="Quick, describe your event!" value="{{event.dataValues.title}}" />
+                <input name="title" class="form-control" placeholder="Quick, describe your event!" value="{{event.title}}" />
             </div>
             <div class="form-group">
               <label for="imgUrl">Image Url</label>
-              <input name="imgUrl" class="form-control" placeholder="URL to your event image." value="{{event.dataValues.imgUrl}}"/>
+              <input name="imgUrl" class="form-control" placeholder="URL to your event image." value="{{event.imgUrl}}"/>
             </div>
             <div class="form-group">
               <label for="desc">Description</label>
-              <textarea name="desc" class="form-control" placeholder="A description of your event.">{{event.dataValues.desc}}</textarea>
+              <textarea name="desc" class="form-control" placeholder="A description of your event.">{{event.desc}}</textarea>
+            </div>
+            <div class="form-group">
+              <label for="date">Event Date</label><br>
+              <input name="date" type="date" value="{{rawDate}}">
             </div>
           </form>
           <div class="text-right">
             <button type="submit" form="delete" class='btn btn-danger'>Delete</button>
-            <a href="/events/{{event.dataValues.id}}" class='btn btn-warning mx-2'>Cancel</a>
+            <a href="/events/{{event.id}}" class='btn btn-warning mx-2'>Cancel</a>
             <button type="submit" form="update" class="btn btn-success" name="button">Update</button>
           </div>
-          <form action="/events/{{event.dataValues.id}}?_method=DELETE" id="delete" method="post"></form>
+          <form action="/events/{{event.id}}?_method=DELETE" id="delete" method="post"></form>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ html, body {
     display: block;
 }
 #footer {
-    margin-top: 5vh;
+    /*margin-top: 5vh;*/
     height: 10vh;
 }
 #footer > div > a {
@@ -14,4 +14,12 @@ html, body {
 }
 .no_ul:hover {
     text-decoration: none;
+}
+
+.small-img {
+    object-fit: cover;
+    height: 15vw;
+}
+.card-wrapper {
+    width: 33%;
 }

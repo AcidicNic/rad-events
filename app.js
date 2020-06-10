@@ -2,6 +2,9 @@ const express = require('express');
 const methodOverride = require('method-override');
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const handlebars = require('handlebars');
+const moment = require('moment');
+
 
 // controllers
 const eventRouter = require('./controllers/event');
@@ -15,7 +18,21 @@ app.engine('hbs', hbs({
   extname: '.hbs',
   layoutDir: __dirname + '/views/layouts',
   partialsDir: __dirname + '/views/partials',
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  helpers: {
+    trimString: function (content) {
+      if (content.length > 80) {
+        content = content.substring(0,80) + "...";
+      }
+      return new handlebars.SafeString(content);
+    },
+    prettyDate: function (date) {
+      return moment(date).add(12, 'hours').format('dddd, MMMM D YYYY');
+    },
+    simpleDate: function (date) {
+      return moment(date).add(12, 'hours').format('MMMM do YYYY');
+    },
+  }
 }));
 app.set('view engine', 'hbs');
 

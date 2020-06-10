@@ -1,7 +1,8 @@
 const models = require('../db/models');
+const moment = require('moment');
 
 exports.getAll = (req, res) => {
-  models.Event.findAll({ order: [['createdAt', 'DESC']] }).then(events => {
+  models.Event.findAll({ order: [['createdAt', 'DESC']], raw: true }).then(events => {
     res.render('events-view', {events: events, title: 'Explore'})
   });
 };
@@ -15,28 +16,32 @@ exports.create = (req, res) => {
     // redirect to the new event's page
     res.redirect(`/events/${event.id}`)
   }).catch((err) => {
-    console.log(err)
+    console.log(err);
   });
 };
 
 exports.getOne = (req, res) => {
-  models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp }] }).then(event => {
-    let createdAt = event.createdAt;
-    createdAt = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
-    event.createdAtFormatted = createdAt;
-    res.render('events-show', { event: event, title: event.title });
+  models.Event.findByPk(req.params.id, { include: [{ model: models.Rsvp, raw: true, nest: true}], nest: true}).then(event => {
+    res.render('events-show', { event: event.dataValues, title: event.title });
   }).catch((err) => {
     console.log(err.message);
+    res.redirect(`/`);
   })
 };
 
 exports.editOne = (req, res) => {
-  models.Event.findByPk(req.params.id).then((event) => {
-    res.render('events-edit', { event: event, title: "Edit" });
+  models.Event.findByPk(req.params.id, {raw: true}).then((event) => {
+    if (event.date) {
+      rawDate = moment(event.date).format('YYYY-MM-DD');
+    }
+    else {
+      rawDate = null;
+    }
+    res.render('events-edit', { event: event, title: "Edit", rawDate: rawDate });
   }).catch((err) => {
     // event not found!
-    console.log(err.message);
-    // res.redirect('/')
+    console.log(err);
+    res.redirect(`/`);
   })
 };
 

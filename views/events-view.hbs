@@ -1,22 +1,21 @@
 <!-- views/events-view.hbs -->
-<div class="row mt-4">
-    <div class="col-lg-6 offset-lg-3">
-        <h1>Reviews</h1>
-        <a class="btn btn-primary" href="/events/new">New Event</a>
-
-        <h1>Events</h1>
+<div class="mx-auto mt-3">
+    <h1 class="text-center">All Events</h1>
+    <div class="d-flex flex-wrap">
         {{#each events}}
-        <div class="card mt-3">
-            <img class="card-img-top" src="{{this.dataValues.imgUrl}}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{this.dataValues.title}}</h5>
-                <p class="card-text">{{this.dataValues.desc}}</p>
-                <div class="text-right">
-                    <a href="/events/{{this.dataValues.id}}/rsvps/new" class="btn btn-info">Rsvp</a>
-                    <a href="/events/{{this.dataValues.id}}" class="btn btn-primary">View</a>
+            <div class="card-wrapper">
+                <div class="card m-2">
+                    <img class="card-img-top small-img" src="{{this.imgUrl}}" alt="Event Image">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">{{this.title}}</h5>
+                        <p class="card-text text-muted mb-2">{{{ simpleDate this.date }}}</p>
+                    </div>
+                    <div class="pt-0 border-top-0 bg-white card-footer">
+                        <a href="/events/{{this.id}}" class="btn btn-primary">View</a>
+                        <a href="/events/{{this.id}}/rsvps/new" class="btn btn-info ml-2">Rsvp</a>
+                    </div>
                 </div>
             </div>
-        </div>
         {{/each}}
     </div>
 </div>
