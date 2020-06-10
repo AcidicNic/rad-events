@@ -37,7 +37,7 @@ app.engine('hbs', hbs({
 app.set('view engine', 'hbs');
 
 // Static files
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(__dirname + '/public'));
 
 // BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
